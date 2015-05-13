@@ -1,6 +1,6 @@
 {
   "name": "nodejs-sequilizejs(ORM)",
-  "version": "0.0.1.5-11",
+  "version": "0.0.5-11",
   "description": "CRUD using nodejs-sequelizejs(ORM)",
   "main": "server.js",
   "scripts": {
@@ -22,4 +22,3 @@
     "node": ">=0.8.x"
   }
 }
-
