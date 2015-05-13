@@ -1,14 +1,14 @@
 {
-  "name": "nodejs-sequilizejs(ORM)",
+  "name": "seanJS",
   "version": "0.0.5-11",
-  "description": "CRUD using nodejs-sequelizejs(ORM)",
+  "description": "seanJS implementation",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/gauravbhavsar/nodejs-sequelizejs.git"
+    "url": "https://github.com/gauravbhavsar/seanJS.git"
   },
   "dependencies": {
     "express": "~3.0.1",
