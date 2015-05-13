@@ -29,7 +29,7 @@ app.get('/users', function (req, res, next) {
 	 db.User().findAll({where:{IsDeleted: false},order: "'id' DESC"}).then(function(d){
 	 	//res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
 	 	//res.render('',{users:d});
-	 	res.send(path.join('users.html'),{users:d});
+	 	res.json(d);
 	 });
 });
 
