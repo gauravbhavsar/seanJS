@@ -15,7 +15,8 @@
     "sequelize":"latest",
     "q":"latest",
     "tedious":"latest",
-    "angular":"latest"
+    "angular":"latest",
+    "path":"latest"
   },
   "subdomain": "gauravbhavsar-nodejs-sequelizejs(ORM)",
   "engines": {

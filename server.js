@@ -17,7 +17,7 @@ app.use('/public', express.static('public'));
 app.use('/common', express.static('common'));
 
 app.get('/', function (req, res) {
-  	res.render('index');
+  	res.sendfile(path.resolve('./views/users.html'));
 });
 
 app.get('/create/user', function(req, res) {
@@ -27,9 +27,10 @@ app.get('/create/user', function(req, res) {
 //all record
 app.get('/users', function (req, res, next) {
 	 db.User().findAll({where:{IsDeleted: false},order: "'id' DESC"}).then(function(d){
-	 	//res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+	 	res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+	 	res.json({users:d});
 	 	//res.render('',{users:d});
-	 	res.json(d);
+	 	//res.send();
 	 });
 });
 
