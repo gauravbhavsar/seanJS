@@ -1,4 +1,5 @@
 (function(){
+	'use strict';
 
 	var app = angular.module('userApp',[]);
 
@@ -8,7 +9,6 @@
 				var defer = $q.defer();
 				$http.get('/users').success(function(data){
 					defer.resolve(data);
-					console.log("data->",data);
 				});
 				return defer.promise;
 			},
@@ -37,9 +37,11 @@
 
 		$scope.detail = user.find({ id: $scope.id });
 
-	    function loadUsers() { user.findAll().then(function (d) { 
-	    	console.log("users record -> ",d);
-	    	$scope.users = d; }); }
+	    function loadUsers(){
+	    	user.findAll().then(function(d){
+	    		$scope.users = d;
+	    	});
+		}
 
 	    $scope.create = function () {
 	        user.add({ name: $scope.name }).then(function (d) {
@@ -58,4 +60,4 @@
 
 	    loadUsers();
 	}]);
-});
+})();

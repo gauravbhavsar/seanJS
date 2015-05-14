@@ -8,33 +8,41 @@ var nodes = { };
 var usernames = {};
 server.listen(process.env.PORT || 3000);
 
-app.set('view engine', 'html');
+app.set('view engine', 'jade');
 app.set('view options', { layout: false });
 app.use(express.methodOverride());
 app.use(express.bodyParser());  
 app.use(app.router);
 app.use('/public', express.static('public'));
 app.use('/common', express.static('common'));
+app.use('/bower_components', express.static('bower_components'));
 
 app.get('/', function (req, res) {
-  	res.sendfile(path.resolve('./views/users.html'));
+  	//res.sendfile(path.resolve('./views/users.html'));
+  	db.User().findAll({where:{IsDeleted: false},order: "'id' DESC"}).then(function(d){
+	 	res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+	 	res.render('users');
+	 });
 });
 
 app.get('/create/user', function(req, res) {
 	res.render('createuser');
 });
 
-//all record
 app.get('/users', function (req, res, next) {
 	 db.User().findAll({where:{IsDeleted: false},order: "'id' DESC"}).then(function(d){
 	 	res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
-	 	res.json({users:d});
-	 	//res.render('',{users:d});
-	 	//res.send();
+	 	res.render('users');
 	 });
 });
 
-//fetch by id
+app.get('/userinfo',function (req,res,next){
+	db.User().findAll({where:{IsDeleted: false},order: "'id' DESC"}).then(function(d){
+	 	res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+	 	res.send(d);
+	 });
+})
+
 app.get('/user/:id', function(req, res) {
 	db.User().find(req.params.id).then(function(d) {
 		res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
@@ -44,7 +52,6 @@ app.get('/user/:id', function(req, res) {
 	});
 });
 
-//create record
 app.post('/userpost',function(req,res){
 	db.User().findOrCreate({
 		where: {
@@ -57,7 +64,6 @@ app.post('/userpost',function(req,res){
 	res.end();
 });
 
-//update record
 app.put('/userput',function(req,res){
 	db.User().find(req.body.id).then(function(d){
   		if(d){
@@ -71,7 +77,6 @@ app.put('/userput',function(req,res){
 	res.end();
 });
 
-//delete record
 app.get('/delete/user/:id',function(req,res){
 	db.User().find(req.params.id).then(function(d){
 		if(d){

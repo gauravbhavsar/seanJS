@@ -1,0 +1,29 @@
+html(ng-app='app')
+  head
+    link(href='/public/bootstrap.css', rel='stylesheet')
+    script(src='/bower_components/angular/angular.js')
+    script(src='/public/bootstrap.js')
+    <!--<script src="/public/userService.js"></script>-->
+    script(src="/public/app.js")
+
+    body(ng-controller='userController as user')
+      .container
+        #form
+          .form-group
+            label.label label-default First Name
+            input.form-control#firstName type="text" ng-model=user.firstName
+            input type="hidden"#id ng-model=user.id
+          .form-group
+            label.label.label-default Last Name
+            input.form-control#lastName type="text" ng-model=user.lastName%
+          .btn-group
+            button type="submit".btn btn-success Update
+
+          style(type='text/css')
+            .label{
+              margin-left:10px;
+              margin-bottom: 1px;
+            }
+            .form-group input{
+              margin-top:3px;
+            }
