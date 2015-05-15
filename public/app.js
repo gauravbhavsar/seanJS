@@ -10,12 +10,6 @@
 		};
 	});
 
-	app.controller('userInfo',function(){
-		angular.element(document).ready(function () {
-        	$scope.detail = user.find({ id: $scope.id });
-    	});
-	})
-
 	app.controller('userController',['$scope','$http','$q','$stateParams','$location',function($scope,$http,$q,$stateParams,$location){
 		var user = {
 			findAll : function(){
@@ -43,14 +37,10 @@
 			},
 			remove : function(id){
 				$http.delete('/delete/user/'+id).success(function(){
-
+					window.location.href = '/users';
 				});
 			}
 		};
-
-		// angular.element(document).ready(function () {
-	 //        	return $scope.detail = user.find({ id: $state.id });
-	 //    	});
 
 		user.find({ id: parseInt($location.$$absUrl.split('user/')[1]) });
 
@@ -75,19 +65,4 @@
 	    loadUsers();
 	}]);
 
-	// app.run(['$rootScope', '$state', '$stateParams', function ($rootScope, $state, $stateParams) {
- //      $rootScope.$state = $state;
- //      $rootScope.$stateParams = $stateParams;
- //  	}]);
-
-	// app.config(['$stateProvider','$urlRouteProvider',function($stateProvider,$urlRouteProvider){
-	// 	$urlRouteProvider.otherwise('/users');
-	// 	$stateProvider.state('app',{
-	// 		'abstract':true,
-	// 		url:'/users',
-	// 		templateUrl:'/views/users.html'
-	// 	});
-	// }]);
-
-	
 })();
