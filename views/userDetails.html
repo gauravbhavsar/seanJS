@@ -1,0 +1,28 @@
+<html ng-app='app'>
+  <head>
+    <link rel="stylesheet" href="/public/bootstrap.css" />
+    <link rel="stylesheet" href="/public/style.css" />
+    <script src="/public/bootstrap.js"></script>
+    <script src='/bower_components/angular/angular.js'></script>
+    <script src='/bower_components/angular-ui-router/release/angular-ui-router.min.js'></script>
+    <script src='/public/app.js'></script>
+  </head>
+  <body ng-controller="userController">
+    <div class="container">
+      <layout-page></layout-page>
+      <form id="form">
+        <div class="form-group">
+          <label class="label label-default">First Name</label>
+          <input class="form-control" type="text" ng-model='user.firstName' placeholder="First Name" />
+        </div>
+        <div class="form-group">
+          <label class="label label-default">Last Name</label>
+          <input class="form-control" type="text" ng-model='user.lastName' placeholder="Last Name" />
+        </div>
+        <div class="btn-group">
+          <button type="submit" class="btn btn-success" ng-click='edit(user)'>Update</button>
+        </div>
+      </form> 
+    </div>
+  </body>
+</html>

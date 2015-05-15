@@ -1,0 +1,41 @@
+<html ng-app="app">
+<head>
+  <link rel="stylesheet" href="/public/bootstrap.css" />
+  <script src="/public/bootstrap.js"></script>
+  <script src='/bower_components/angular/angular.js'></script>
+  <script src='/bower_components/angular-ui-router/release/angular-ui-router.min.js'></script>
+  <script src='/public/app.js'></script>
+</head>
+<body ng-controller="userController">
+  <div class="container">
+    <layout-page></layout-page>
+      <div class="col-lg-12">
+        <a href="/create/user" class="btn btn-primary"> Create New User</a>
+      </div>
+      <div ng-repeat="user in users">
+        <div class="col-lg-4" style="margin-top:30px">
+          <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+              <h3 class="panel-title pull-left">{{user.firstName}} {{user.lastName}}</h3>
+              <div class="pull-right btn btn-group">
+                <a class="btn btn-primary" href="/user/{{user.id}}">
+                  <i class="fa fa-pencil"></i>Edit
+                </a>
+                <a href="/delete/user/{{user.id}}" class="btn btn-danger delete" >Delete</a>
+              </div>
+            </div>
+            <div class="list-group">
+              <div class="list-group-item">
+                <p class="list-group-item-text col-lg-12">CreatedAt</p>
+                <h4 class="list-group-item-heading col-lg-12">{{user.createdAt|date:'dd MMM yyyy H:mm'}}</h4>
+              </div>
+              <div class="list-group-item">
+                <p class="list-group-item-text">This is user Information showing using node and expressJS with mssql (ORM) i.e sequelizeJS)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
