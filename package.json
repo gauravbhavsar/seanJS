@@ -16,6 +16,7 @@
     "q":"latest",
     "tedious":"latest",
     "angular":"latest",
+    "angular-ui-router": "~0.2.11",
     "path":"latest"
   },
   "subdomain": "gauravbhavsar-nodejs-sequelizejs(ORM)",
