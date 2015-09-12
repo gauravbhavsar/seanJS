@@ -42,7 +42,9 @@
 			}
 		};
 
-		user.find({ id: parseInt($location.$$absUrl.split('user/')[1]) });
+		if(parseInt($location.$$absUrl.split('user/')[1])){
+			user.find({ id: parseInt($location.$$absUrl.split('user/')[1]) });
+		}
 
 	    function loadUsers(){ 
 	    	user.findAll().then(function (d){

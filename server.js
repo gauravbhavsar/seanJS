@@ -12,6 +12,7 @@ app.use(express.bodyParser());
 app.use(app.router);
 app.use('/public', express.static('public'));
 app.use('/common', express.static('common'));
+app.use('/img', express.static('img'));
 app.use('/bower_components', express.static('bower_components'));
 app.use('/node_modules', express.static('node_modules'));
 
@@ -46,7 +47,7 @@ app.get('/user/:id',function(req,res){
 });
 
 app.get('/userbyid/:id', function(req, res) {
-	db.User().find(req.params.id).then(function(d) {
+	db.User().findById(req.params.id).then(function(d) {
 		res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
 		res.send(d);
 	});
@@ -54,7 +55,7 @@ app.get('/userbyid/:id', function(req, res) {
 
 app.post('/userpost',function(req,res){
 	console.log('this is post',req.body);
-	db.User().findOrCreate({
+	var user = db.User().findOrCreate({
 		where: {
 			firstName: req.body.firstName,
 			lastName: req.body.lastName,
@@ -91,3 +92,10 @@ app.get('/delete/user/:id',function(req,res){
 	res.redirect('users');
 	res.end();
 });
+
+app.get('/imageprocessing',function(req,res){
+	console.log("This is Image Processing Page call ->",res);
+	res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+	console.log("This is Path resolver -> ",path.resolve('views/imageprocessing.html'));
+	res.sendfile(path.resolve('views/imageprocessing.html'));
+})

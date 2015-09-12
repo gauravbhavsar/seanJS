@@ -17,7 +17,8 @@
     "tedious":"latest",
     "angular":"latest",
     "angular-ui-router": "~0.2.11",
-    "path":"latest"
+    "path":"latest",
+    "dat-gui":"latest"
   },
   "subdomain": "gauravbhavsar-nodejs-sequelizejs(ORM)",
   "engines": {

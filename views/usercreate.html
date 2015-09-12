@@ -2,12 +2,14 @@
   <head>
     <link rel="stylesheet" href="/public/bootstrap.css" />
     <link rel="stylesheet" href="/public/style.css" />
+    <script src="/public/jquery-1.8.0.js"></script>
     <script src="/public/bootstrap.js"></script>
     <script src='/node_modules/angular/angular.js'></script>
+    <script src='/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js'></script>
     <script src='/node_modules/angular-ui-router/release/angular-ui-router.min.js'></script>
     <script src='/public/app.js'></script>
   </head>
-  <body ng-controller="userController">
+  <body ng-cloak ng-controller="userController">
     <div class="container">
       <layout-page></layout-page>
       <form id="form">

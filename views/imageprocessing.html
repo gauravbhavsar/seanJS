@@ -1,0 +1,79 @@
+<html ng-app='app'>
+  <head>
+    <link rel="stylesheet" href="/public/bootstrap.css" />
+    <link rel="stylesheet" href="/public/style.css" />
+    <script src="/public/jquery-1.8.0.js"></script>
+    <script src="/public/bootstrap.js"></script>
+    <script src='/node_modules/angular/angular.js'></script>
+    <script src='/node_modules/angular-ui-router/release/angular-ui-router.min.js'></script>
+    <script src='/public/app.js'></script>
+    <script src='/public/tracking-min.js'></script>
+  </head>
+  <body ng-controller="userController">
+  	<button onclick="myCanvas()">Try it</button>
+	<canvas id="source"></canvas>
+
+	<script>
+		window.onload = function() {
+			var ctx = document.getElementById("source").getContext("2d");
+
+			var img_buffer = document.createElement('img');
+			img_buffer.src = "/img/red-wine-bottle.png";
+
+			img_buffer.onload = function() {
+				var imgWidth=img_buffer.width;
+				var imgHeight=img_buffer.height;
+				ctx.canvas.width = img_buffer.width;
+				ctx.canvas.height = img_buffer.height;
+				ctx.drawImage(img_buffer,0,0,imgWidth,imgHeight);
+			};
+		}
+		
+		window.fastThreshold = 10;
+
+		var myCanvas = function(){
+			tracking.Fast.THRESHOLD = window.fastThreshold;
+			var image = new Image();
+			image.id = "img";
+			
+			var sourceCanvas = document.getElementById('source');
+			image.src = sourceCanvas.toDataURL();
+			var context = sourceCanvas.getContext("2d");
+
+			var imageData = context.getImageData(0, 0, image.width, image.height);
+			
+			var x=0,y=0;
+			myImageData = [];
+			for (var i = 0; i < imageData.data.length; i++) {
+				if(imageData.data[i] === 0 && y===0){
+					myImageData.push(imageData.data[i]);
+					x=i;
+					y=i;
+				}
+				if(x !== 0){
+					myImageData.push(imageData.data[i]);
+				}
+			};
+
+			for (var i = myImageData.length-1; i >0; i--) {
+				if(myImageData[i] === 0){
+					myImageData.pop();
+				}
+				if(myImageData[i] !== 0){
+					break;
+				}
+			};
+
+
+
+
+			var gray = tracking.Image.grayscale(myImageData, image.width, image.height);
+			var corners = tracking.Fast.findCorners(gray, image.width, image.height);
+			for (var x = 0; x < corners.length; x += 2) {
+          		context.fillStyle = '#f00';
+          		context.fillRect(corners[x], corners[x + 1], 3, 3);
+        	}
+		}
+	</script>
+  </body>
+</html>
