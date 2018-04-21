@@ -13,31 +13,30 @@
 	app.controller('userController',['$scope','$http','$q','$stateParams','$location',function($scope,$http,$q,$stateParams,$location){
 		var user = {
 			findAll : function(){
-				var defer = $q.defer();
-				$http.get('/allusers').success(function(d){
-					defer.resolve(d);
+				return $http.get('/allusers').then(function(d){
+					return d.data;
 				});
-				return defer.promise;
 			},
 			find : function(data){
-				$http.get('/userbyid/'+data.id).success(function(d){
-					$scope.user = d;
+				return $http.get('/userbyid/'+data.id).then(function(d){
+					$scope.user = d.data;
+					return true;
 				});
 			},
 			add : function(data){
-				$http.post('/userpost',data).success(function(){
-					window.location.href='/users';
+				return $http.post('/userpost',data).then(function(d){
+					return true;
 				});
 
 			},
 			update : function(data){
-				$http.put('/userput',data).success(function(){
-					window.location.href = '/users';
+				return $http.put('/userput',data).then(function(d){
+					return true;
 				});
 			},
 			remove : function(id){
-				$http.delete('/delete/user/'+id).success(function(){
-					window.location.href = '/users';
+				return $http.delete('/delete/user/'+id).then(function(){
+					return true;
 				});
 			}
 		};
@@ -53,15 +52,21 @@
 		}
 
 	    $scope.create = function (d) {
-	        return user.add(d);
+	        user.add(d).then(function(data){
+			window.location.href='/users';
+		});
 	    }
 
 	    $scope.edit = function (d) {
-	        return user.update(d);
+	        user.update(d).then(function(data){
+			window.location.href = '/users';
+		});
 	    }
 
 	    $scope.delete = function () {
-	        return user.remove({ id: $scope.id });
+		    return user.remove({ id: $scope.id }).then(function(data){
+		    	window.location.href = '/users';
+		    });
 	    }
 
 	    loadUsers();
