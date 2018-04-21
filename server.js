@@ -17,7 +17,7 @@ app.use('/bower_components', express.static('bower_components'));
 app.use('/node_modules', express.static('node_modules'));
 
 app.get('/', function (req, res) {
-  	db.User().findAll({where:{IsDeleted: false},order: "'id' DESC"}).then(function(d){
+  	db.User().findAll({where:{IsDeleted: false},order: [['id', 'DESC']]}).then(function(d){
 	 	res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
 	 	res.sendfile(path.resolve('./views/users.html'));
 	 });
@@ -28,14 +28,14 @@ app.get('/create/user', function(req, res) {
 });
 
 app.get('/users', function (req, res, next) {
-	 db.User().findAll({where:{IsDeleted: false},order: "'id' DESC"}).then(function(d){
+	 db.User().findAll({where:{IsDeleted: false},order: [['id', 'DESC']]}).then(function(d){
 	 	res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
 	 	res.sendfile(path.resolve('views/users.html'));
 	 });
 });
 
 app.get('/allusers',function (req,res,next){
-	db.User().findAll({where:{IsDeleted: false},order: "'id' DESC"}).then(function(d){
+	db.User().findAll({where:{IsDeleted: false},order: [['id', 'DESC']]}).then(function(d){
 	 	res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
 	 	res.send(d);
 	 });
